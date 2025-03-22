@@ -3,7 +3,6 @@ import org.junit.Test;
 
 public class TrainTest {
 
-    // Engine Tests
     @Test
     public void testEngineConstructor() {
         fail();
@@ -11,7 +10,10 @@ public class TrainTest {
 
     @Test
     public void testEngineGo() {
-        fail();
+        if (!engine.go()) { 
+            fail("Engine should be able to go if fuel is available.");
+        }
+        assertEquals(45.0, engine.getCurrentFuel(), "Fuel level should decrease by 5 after go() call.");
     }
 
     // Car Tests
@@ -49,7 +51,11 @@ public class TrainTest {
 
     @Test
     public void testTrainGetCar() {
-        fail();
+    if (train.getCar(5) != null) { 
+        fail("getCar(5) should return null because there are only 3 cars.");
+    }
+}
+
     }
 
     @Test
