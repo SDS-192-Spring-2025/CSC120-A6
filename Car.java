@@ -1,85 +1,74 @@
 import java.util.ArrayList;
-public class Car {
-    private ArrayList<Passenger> passengers = new ArrayList<>();
-    private final int carCapacity=100;
-
+public class Car{ 
+    private ArrayList<Passenger> passengers; 
+    private final int maxCapacity; 
     /**
      * constructor
-     * @param passengers
+     * @param maximum capacity
      */
-    public Car(ArrayList<Passenger> passengers) {
-        this.passengers = passengers;
-    }
-
-    /**
-     *
-     * @return carCapacity the maximum number of passengers the car can hold
+    public Car(int maxCapacity){ 
+        this.passengers = new ArrayList<>(); 
+        this.maxCapacity = maxCapacity; 
+    } 
+     /**
+     * getter
+     * @return the maximum capatity
      */
-    public int getCarCapacity() {
-        return carCapacity;
-    }
-
-    /**
-     *
-     * @return information about passengers who are in the car
+    public int getCapacity(){
+         return maxCapacity;
+    } 
+     /**
+     * setter
+     * @return the number of seatsRemaining 
      */
-    public ArrayList<Passenger> getPassengers() {
-        return passengers;
-    }
-    /**
-     *
-     * @return the number of free seats; the car capacity minus the number of current passengers
+    public int seatsRemaining(){
+        int seatsRemaining;
+        seatsRemaining= maxCapacity - passengers.size(); 
+         return seatsRemaining;
+    } 
+     /**
+     * @return adds the passengers when the condition is met, otherwise returns false.
      */
-    public int seatsRemaining() {
-        int seatsRemaining=getCarCapacity() - passengers.size();
-        System.out.println("The number of seats remaining is: "+seatsRemaining);
-        return seatsRemaining ;
-    }
-
-    /**
-     *
-     * @param passengers
-     * @return T/F Does the car have extra seats?
-     */
-    public boolean carSpaceAvailable(ArrayList<Passenger> passengers) {
-        if(carCapacity==passengers.size()){
-            System.out.println("Car is full!");
-            return false;
-        }else{
-            if(passengers.size()<carCapacity || passengers.isEmpty()) {
-                System.out.println("Car has space!");
-            }
-            return true;
-        }
-    }
-    public boolean addPassenger(Passenger passenger) {
-        if (carSpaceAvailable(passengers) && !passengers.contains(passenger)) {
-            passengers.add(passenger);
-            return true;
-        }else {
+    public boolean addPassenger(Passenger p){ 
+        if(passengers.contains(p)){
+            System.out.println("Passenger is already in the car");
             return false;
         }
-    }
-    public boolean removePassenger(Passenger passenger) {
-        if (passengers.contains(passenger)){ 
-            passengers.remove(passenger);
+        if(passengers.size() < maxCapacity){
+            passengers.add(p);
+            System.out.println("Added a passenger to the car");
             return true;
-        }else {
+        } 
+        else{
+            System.out.println("Can't add a passenger to a full car. Try another one");
             return false;
         }
-    }
-    public void printManifest(){
-        int i=0;
-        if(!passengers.isEmpty()) {
-            System.out.println(" ");
-            System.out.println("The Manifest");
-            System.out.println("");
-            for (Passenger passenger : passengers) {
-                System.out.println("passenger "+i+": "+passenger.name);
-                i++;
-            }
-        }else{
-            System.out.println("Car is empty!");
+
+    } 
+     /**
+     * removes the passengers when the condition is met, otherwise returns false.
+     */
+    public boolean removePassenger(Passenger p) { 
+        if(passengers.contains(p)) {
+            passengers.remove(p);
+            System.out.println("Passenger removed ");
+            return true;
+        } 
+        else {
+            System.out.println("\nThis passenger is not found in this car\n");
+            return false;
         }
-    }
+
+    } 
+
+    public void printManifest(){ 
+        if (passengers.isEmpty()) { 
+            System.out.println("This car is empty."); 
+        } 
+        else { 
+            for (Passenger passenger : passengers){ 
+                System.out.println("Passenger: " + passenger.getName()); 
+            } 
+        } 
+    } 
 }

@@ -1,84 +1,61 @@
-public class Engine {
-    private FuelType fuelType;
-    private double currentFuelLevel;
-    private final double maxCapacity;
-
-    /**
-     * getter
-     * @return the engine's full fuel capacity
-     */
-    public double getMaxFuel() {
-        return maxCapacity;
-    }
-
-    /**
-     * getter
-     * @return the current fuel level in the engine
-     */
-    public double getCurrentFuel() {
-        return currentFuelLevel;
-    }
-
-    /**
-     * getter
-     * @return what fuel the engine uses
-     */
-    public FuelType getFuelType() {
-        return fuelType;
-    }
-
-    /**
-     * setter
-     * @param fuelType
-     * changes what fuel the engine uses
-     */
-    public void setFuelType(FuelType fuelType) {
-        this.fuelType = fuelType;
-    }
-
-    /**
-     * setter
-     * @param currentFuelLevel
-     * Updates the fuel level
-     */
-    public void setCurrentFuelLevel(double FuelLevelNow) {
-        this.currentFuelLevel = FuelLevelNow;
-    }
-
-    /**
+public class Engine { 
+    private FuelType FuelType; 
+    private double currentFuelLevel; 
+    private final double maxCapacity; 
+    
+     /**
      * constructor
      * @param fuel
      * @param currentFuelLevel
      * @param EngineCapacity
      * Passing the values of the varibles into the constructor.
      */
-    public Engine(FuelType fuelType, double currentFuelLevel, double maxCapacity) {
-        this.fuelType=fuelType;
-        this.currentFuelLevel = currentFuelLevel;
-        this.maxCapacity=maxCapacity;
-    }
+    public Engine(FuelType fuelType, double currentFuelLevel, double maxCapacity){ 
+        this.FuelType = fuelType; 
+        this.currentFuelLevel = currentFuelLevel; 
+        this.maxCapacity = maxCapacity; 
+    } 
+     /**
+     * getter
+     * @return The fuel type
+     */
+    public FuelType getFuelType(){
+         return FuelType;
+    } 
+     /**
+     * getter
+     * @return maximum fuel capacity of the Engine
+     */
 
-    /**
-     * Fills the engine to the maximum capacity
+    public double getMaxFuel(){
+        return maxCapacity;
+    } 
+     /**
+     * getter
+     * @return the current fuel level
+     */
+    public double getCurrentFuel(){
+         return currentFuelLevel; 
+    } 
+     /**
+     * Method to refill the engine
      */
     public void refuel(){
-        this.currentFuelLevel = maxCapacity;
-    }
-
-    /**
-     * Updates fuel after every trip
-     * @return True if the engine has enough fuel to start, false otherwise
+         currentFuelLevel = maxCapacity;
+    } 
+     /**
+     * Method to start the engine.
      */
-    public boolean go(){
-        if(currentFuelLevel > 0){
-            System.out.println("Choo choo! Safe travels!");
-            int gallonPerTrip= 5;
-            this.currentFuelLevel -= gallonPerTrip;
-            return true;
-           
-        }else{
-            System.out.println("The Engine is out of fuel. Need a refill!");
-            return false;
+    public Boolean go(){ 
+        //final int gallonPerTrip = 5;
+        if (currentFuelLevel > 0) { 
+            //currentFuelLevel = currentFuelLevel - gallonPerTrip; 
+            System.out.println("The current fuel level is: " + currentFuelLevel); 
+            return true; 
+        } 
+        else
+        {
+            return false; 
         }
-    }
+    } 
 }

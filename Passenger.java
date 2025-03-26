@@ -1,31 +1,35 @@
-public class Passenger {
-    String name;
-
+public class Passenger{ 
+    private String name; 
     /**
-     * constructor
-     * @param nameOfPassenger gets the name of the passenger
-     * 
+     * Constructor
+     * @param name
      */
-    public Passenger(String nameOfPassenger) {
-        this.name = nameOfPassenger;
-    }
-
+    public Passenger(String name) { 
+        this.name = name; 
+    } 
     /**
-     * adds passenger to the car
-     * @param c, the car the passenger is boarding
+     * Getter
+     * @return name
      */
-    public void boardCar(Car c){
-        var newPassenger= new Passenger( name);
-        c.addPassenger(newPassenger);
-    }
-
+    public String getName(){ 
+        return name; 
+    } 
     /**
-     * removes passenger from the car
-     * @param c, The car the passenger is getting off 
+     * Method for boarding a car
+     * @param c
      */
-    public void getOffCar(Car c){
-        var availablePassenger= new Passenger( name);
-        c.removePassenger(availablePassenger);
-
-    }
+    public void boardCar(Car c) { 
+        if (!c.addPassenger(this)) { 
+            System.out.println(name + " couldn't board. Car is full.");
+        } 
+    } 
+    /**
+     * Method for removing passenger from a car
+     * @param c
+     */
+    public void getOffCar(Car c) { 
+        if (!c.removePassenger(this)) { 
+            System.out.println(name + " isn't on this car.");
+        } 
+    } 
 }

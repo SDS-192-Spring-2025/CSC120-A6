@@ -1,127 +1,106 @@
 import java.util.ArrayList;
-import java.util.Scanner;
 public class Train {
     private final Engine engine;
     private ArrayList<Car> cars;
-
+    public int maxCapacity;
     /**
-     * getter
-     * @return the type of engine being used by the train
+     * Getter
+     * @return an instance of the engine class.
      */
     public Engine getEngine(){
         return engine;
     }
-
     /**
-     * constructor
+     * Constructor
      * @param fuelType
      * @param fuelCapacity
      * @param nCars
-     * @param passengerCapacity
+     * @param maxCapacity
      */
-    @SuppressWarnings("OverridableMethodCallInConstructor")
-    public Train(FuelType fuelType, double fuelCapacity, int nCars, int passengerCapacity) {
-        this.engine = getEngine();
+    public Train(FuelType fuelType, double fuelCapacity, int nCars, int maxCapacity) {
+        this.engine = new Engine(fuelType, fuelCapacity, fuelCapacity);
         this.cars = new ArrayList<>();
+        this.maxCapacity = maxCapacity;
+        for (int i = 0; i < nCars; i++) {
+            this.cars.add(new Car(maxCapacity));
+        }
     }
     /**
-     * getter
-     * @return information about all the train's cars
+     * 
+     * @return cars 
      */
     public ArrayList<Car> getCars() {
         return cars;
     }
-
     /**
-     * adds a new car to the train, returns the updated train's cars
-     * @param car
-     * @param cars
-     * @return
-     */
-    public ArrayList<Car> addCar(Car car, ArrayList<Car> cars) {
-        cars.add(car);
-        return cars;
-    }
-
-    /**
-     * getter
+     * 
      * @param i
-     * @return the car at index i
+     * @return the car at the "i" position in the car arraylist 
      */
     public Car getCar(int i) {
         return cars.get(i);
     }
     /**
      * getter
-     * @return the combined capacity of the train's cars
+     * @return the train passenger capacity
      */
-    public int getMaxCapacity() {
+    public int getMaxCapacity(){
         int trainCapacity = 0;
-        for (Car car : cars) {
-            trainCapacity += car.getCarCapacity();
+        for (Car car : cars){
+            trainCapacity += car.getCapacity();
         }
         return trainCapacity;
     }
-
     /**
-     *
-     * @return how many seats are free in the whole train
+     * 
+     * @return Seats remaining. 
      */
     public int seatsRemaining() {
-        int seatsremaining = 0;
+        int seatsRemaining = 0;
         for (Car car : cars) {
-            seatsremaining += car.seatsRemaining();
+            seatsRemaining += car.seatsRemaining();
         }
-        return seatsremaining;
+        return seatsRemaining;
     }
-
     /**
-     * prints each car's information
-     * @param cars
+     * prints out the manifest of the train. 
      */
-    public void printManifest(ArrayList<Car> cars) {
-        for (Car car : cars) {
-            car.printManifest();
+    public void printManifest() {
+        System.out.println("\nThe Manifest");
+        if (cars.isEmpty()){
+            System.out.println("No cars attached to this train.");
+        }
+        for (int i = 0; i < cars.size(); i++) {
+            System.out.println("\nPassenger list for Car " + (i + 1) + ":");
+            cars.get(i).printManifest();
         }
     }
-
-    /**
-     * Demonstrates the integration of the car, engine, and passenger classes
-     * @param args The command line arguments (ignored)
-     **/
+ 
     public static void main(String[] args) {
-        String nameOfThePassenger;
-        int numGettingIn;
-        Scanner sc= new Scanner(System.in);
-        System.out.println("___________________________________________________________________");
-        System.out.println("******* Welcome to the train! ********");
+        Train myTrain = new Train(FuelType.ELECTRIC, 100.0, 3, 50);
+ 
+        Passenger p1 = new Passenger("Hayle");
+        Passenger p2 = new Passenger("Ben");
+        Passenger p3 = new Passenger("Fatima");
+ 
+        // Add passengers to cars at "i" position 
+        myTrain.getCar(0).addPassenger(p1);
+        myTrain.getCar(0).addPassenger(p2);
+        myTrain.getCar(2).addPassenger(p3);
+ 
+        // Print train manifest
+        myTrain.printManifest();
         System.out.println("");
-        System.out.println("How many passengers want to get on?");
-        numGettingIn=sc.nextInt();
-        ArrayList<Passenger> passengers = new ArrayList<>();
-        for(int i=0; i<numGettingIn;i++){
-            System.out.print("Please input the name of the Passenger ");
-            nameOfThePassenger=sc.next();
-            var newPassenger = new Passenger(nameOfThePassenger);
-            passengers.add(newPassenger);
+ 
+        if (myTrain.getEngine().go()){
+            System.out.println("Choo choo!");
         }
-
-        Engine engine = new Engine(FuelType.ELECTRIC, 0, 40);
-        Car c = new Car(passengers);
-        //Train t = new Train(FuelType.ELECTRIC, 40, 3, 100);
-        c.printManifest();
+        else{
+            System.out.println("Out of fuel. Please refill.");
+        }
+        myTrain.getCar(1).removePassenger(p3);
+        myTrain.getCar(0).addPassenger(p1);
         System.out.println("");
-        c.seatsRemaining();
-        engine.go();
-       /*  String answer;
-        answer=sc.next();
-        System.out.println("Does a passenger want to get off?"+answer );
-        if(answer.equals("yes")){
-            System.out.println("Which passenger? ");
-            nameOfThePassenger=sc.next();
-        }*/
-        
-        sc.close();
-        System.out.println("___________________________________________________________________");
     }
-}
+ }
+ 
