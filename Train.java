@@ -2,7 +2,8 @@ import java.util.ArrayList;
 public class Train {
     private final Engine engine;
     private ArrayList<Car> cars;
-    public int maxCapacity;
+    public int trainmaxCapacity;
+    public int nCars;
     /**
      * Getter
      * @return an instance of the engine class.
@@ -15,15 +16,36 @@ public class Train {
      * @param fuelType
      * @param fuelCapacity
      * @param nCars
-     * @param maxCapacity
+     * @param trainmaxCapacity
      */
-    public Train(FuelType fuelType, double fuelCapacity, int nCars, int maxCapacity) {
+    public Train(FuelType fuelType, double fuelCapacity, int nCars, int trainmaxCapacity) {
         this.engine = new Engine(fuelType, fuelCapacity, fuelCapacity);
         this.cars = new ArrayList<>();
-        this.maxCapacity = maxCapacity;
+        this.trainmaxCapacity = trainmaxCapacity;
+        int baseCapacity = trainmaxCapacity / nCars;
+        int remainder = trainmaxCapacity % nCars;
         for (int i = 0; i < nCars; i++) {
-            this.cars.add(new Car(maxCapacity));
+            int carCapacity = baseCapacity + (i < remainder ? 1 : 0); 
+            Car newCar = new Car(carCapacity);  // Creating an object of class Car                    
+            this.cars.add(newCar);                                                      
         }
+    }
+    public Train(FuelType fuelType, double fuelCapacity){
+        this.engine = new Engine(fuelType,500,500);
+        this.cars = new ArrayList<>();
+        this.nCars = 3;
+        this.trainmaxCapacity = 150;
+    }
+    public Train(int nCars){
+        this.engine = new Engine(FuelType.ELECTRIC, 500, 500);
+        this.nCars= nCars;
+        this.trainmaxCapacity = 150;
+    }
+    public Train(){
+        this.engine = new Engine(FuelType.ELECTRIC, 500, 500);
+        this.cars = new ArrayList<>();
+        this.trainmaxCapacity = 150;
+        this.nCars = 3;
     }
     /**
      * 
@@ -58,7 +80,7 @@ public class Train {
     public int seatsRemaining() {
         int seatsRemaining = 0;
         for (Car car : cars) {
-            seatsRemaining += car.seatsRemaining();
+        seatsRemaining += car.seatsRemaining();
         }
         return seatsRemaining;
     }
@@ -77,8 +99,8 @@ public class Train {
     }
  
     public static void main(String[] args) {
-        Train myTrain = new Train(FuelType.ELECTRIC, 100.0, 3, 50);
- 
+        Train myTrain = new Train(FuelType.ELECTRIC, 100.0, 3, 150);
+        //int capacity = myCar.getCapacity();
         Passenger p1 = new Passenger("Hayle");
         Passenger p2 = new Passenger("Ben");
         Passenger p3 = new Passenger("Fatima");
@@ -87,6 +109,7 @@ public class Train {
         myTrain.getCar(0).addPassenger(p1);
         myTrain.getCar(0).addPassenger(p2);
         myTrain.getCar(2).addPassenger(p3);
+        myTrain.getCar(0).toString();
  
         // Print train manifest
         myTrain.printManifest();
@@ -101,6 +124,11 @@ public class Train {
         myTrain.getCar(1).removePassenger(p3);
         myTrain.getCar(0).addPassenger(p1);
         System.out.println("");
+        myTrain.printManifest();
+        System.out.println("The current number of seats Remaining is:"+myTrain.seatsRemaining());
+        myTrain.getCar(2).seatsRemaining();
+        Passenger p5 = new Passenger("Kayla");
+        myTrain.getCar(2).removePassenger(p5);
     }
  }
  

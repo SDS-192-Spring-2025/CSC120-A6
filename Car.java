@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.List;
 public class Car{ 
     private ArrayList<Passenger> passengers; 
     private final int maxCapacity; 
@@ -22,8 +23,8 @@ public class Car{
      * @return the number of seatsRemaining 
      */
     public int seatsRemaining(){
-        int seatsRemaining;
-        seatsRemaining= maxCapacity - passengers.size(); 
+        //int seatsRemaining=0;
+        int seatsRemaining= maxCapacity - passengers.size(); 
          return seatsRemaining;
     } 
      /**
@@ -31,12 +32,12 @@ public class Car{
      */
     public boolean addPassenger(Passenger p){ 
         if(passengers.contains(p)){
-            System.out.println("Passenger is already in the car");
+            System.out.println(p.getName()+" is already in the car");
             return false;
         }
         if(passengers.size() < maxCapacity){
             passengers.add(p);
-            System.out.println("Added a passenger to the car");
+            System.out.println(p.getName()+ " has been added to the car");
             return true;
         } 
         else{
@@ -48,19 +49,21 @@ public class Car{
      /**
      * removes the passengers when the condition is met, otherwise returns false.
      */
-    public boolean removePassenger(Passenger p) { 
-        if(passengers.contains(p)) {
-            passengers.remove(p);
+    public boolean removePassenger(Passenger p3) { 
+        if(passengers.contains(p3)) {
+            passengers.remove(p3);
             System.out.println("Passenger removed ");
             return true;
         } 
         else {
-            System.out.println("\nThis passenger is not found in this car\n");
+            System.out.println("The passenger "+p3.getName()+" is not found in this car\n");
             return false;
         }
 
     } 
-
+    public List<Passenger> getPassengers() {
+        return this.passengers;
+    }
     public void printManifest(){ 
         if (passengers.isEmpty()) { 
             System.out.println("This car is empty."); 
@@ -68,6 +71,7 @@ public class Car{
         else { 
             for (Passenger passenger : passengers){ 
                 System.out.println("Passenger: " + passenger.getName()); 
+                //System.out.println( passenger.getName()); 
             } 
         } 
     } 

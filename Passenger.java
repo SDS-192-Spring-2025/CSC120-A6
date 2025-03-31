@@ -4,7 +4,7 @@ public class Passenger{
      * Constructor
      * @param name
      */
-    public Passenger(String name) { 
+    public Passenger(String name){ 
         this.name = name; 
     } 
     /**
