@@ -53,8 +53,7 @@ public class Engine {
             System.out.println("The current fuel level is: " + currentFuelLevel); 
             return true; 
         } 
-        else
-        {
+        else{
             return false; 
         }
     } 

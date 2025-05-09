@@ -60,8 +60,7 @@ public class TrainTest{
 }
 
     @Test
-    public void testCarAddPassenger()
-    {
+    public void testCarAddPassenger(){
         Car car = new Car(4);
         new Passenger("Alice").boardCar(car);
         new Passenger("Bob").boardCar(car);

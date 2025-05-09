@@ -1,29 +1,24 @@
 import java.util.ArrayList;
-public class Train {
+
+public class Train{
     private final Engine engine;
     private ArrayList<Car> cars;
-    public int trainmaxCapacity;
+    public int trainMaxCapacity;
     public int nCars;
-    /**
-     * Getter
-     * @return an instance of the engine class.
-     */
-    public Engine getEngine(){
-        return engine;
-    }
+
     /**
      * Constructor
      * @param fuelType
      * @param fuelCapacity
      * @param nCars
-     * @param trainmaxCapacity
+     * @param trainMaxCapacity
      */
-    public Train(FuelType fuelType, double fuelCapacity, int nCars, int trainmaxCapacity) {
+    public Train(FuelType fuelType, double fuelCapacity, int nCars, int trainMaxCapacity) {
         this.engine = new Engine(fuelType, fuelCapacity, fuelCapacity);
         this.cars = new ArrayList<>();
-        this.trainmaxCapacity = trainmaxCapacity;
-        int baseCapacity = trainmaxCapacity / nCars;
-        int remainder = trainmaxCapacity % nCars;
+        this.trainMaxCapacity = trainMaxCapacity;
+        int baseCapacity = trainMaxCapacity / nCars;
+        int remainder = trainMaxCapacity % nCars;
         for (int i = 0; i < nCars; i++) {
             int carCapacity = baseCapacity + (i < remainder ? 1 : 0); 
             Car newCar = new Car(carCapacity);  // Creating an object of class Car                    
@@ -34,25 +29,19 @@ public class Train {
         this.engine = new Engine(fuelType,500,500);
         this.cars = new ArrayList<>();
         this.nCars = 3;
-        this.trainmaxCapacity = 150;
+        this.trainMaxCapacity = 150;
     }
     public Train(int nCars){
         this.engine = new Engine(FuelType.ELECTRIC, 500, 500);
         this.nCars= nCars;
-        this.trainmaxCapacity = 150;
+        this.trainMaxCapacity = 150;
     }
-    public Train(){
-        this.engine = new Engine(FuelType.ELECTRIC, 500, 500);
-        this.cars = new ArrayList<>();
-        this.trainmaxCapacity = 150;
-        this.nCars = 3;
-    }
-    /**
-     * 
-     * @return cars 
+        /**
+     * Getter
+     * @return an instance of the engine class.
      */
-    public ArrayList<Car> getCars() {
-        return cars;
+    public Engine getEngine(){
+        return engine;
     }
     /**
      * 
@@ -91,8 +80,7 @@ public class Train {
         System.out.println("\nThe Manifest");
         if (cars.isEmpty()){
             System.out.println("No cars attached to this train.");
-        }
-        for (int i = 0; i < cars.size(); i++) {
+        } for (int i = 0; i < cars.size(); i++) {
             System.out.println("\nPassenger list for Car " + (i + 1) + ":");
             cars.get(i).printManifest();
         }
@@ -100,7 +88,6 @@ public class Train {
  
     public static void main(String[] args) {
         Train myTrain = new Train(FuelType.ELECTRIC, 100.0, 3, 150);
-        //int capacity = myCar.getCapacity();
         Passenger p1 = new Passenger("Hayle");
         Passenger p2 = new Passenger("Ben");
         Passenger p3 = new Passenger("Fatima");
@@ -117,8 +104,7 @@ public class Train {
  
         if (myTrain.getEngine().go()){
             System.out.println("Choo choo!");
-        }
-        else{
+        } else{
             System.out.println("Out of fuel. Please refill.");
         }
         myTrain.getCar(1).removePassenger(p3);
